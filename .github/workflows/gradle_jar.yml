@@ -1,5 +1,5 @@
 # 工作流名称（顶层字段，无缩进）
-name: Build EcoEnchants-Folia JAR (JDK 21)
+name: Build Eco JAR (JDK 21)
 
 # 触发条件（顶层字段）
 on:
@@ -38,10 +38,19 @@ jobs:
         env:
           ORG_GRADLE_PROJECT_javaVersion: 21  # 强制指定JDK 21编译
 
-      # 步骤4：上传编译好的JAR包（可选，方便下载）
+      - name: 查看当前目录路径
+        run: pwd
+
+      - name: 列出所有文件和目录（找 JAR 必备）
+        run: ls -R
+
+      - name: 直接搜索所有 JAR 文件
+        run: find . -name "*.jar"
+
+      # 步骤5：上传编译好的JAR包（可选，方便下载）
       - name: Upload JAR Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: EcoEnchants-Folia-JAR
+          name: Eco-Folia-JAR
           path: |
             bin
