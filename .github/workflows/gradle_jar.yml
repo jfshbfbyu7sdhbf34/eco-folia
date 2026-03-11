@@ -1,0 +1,47 @@
+# 工作流名称（顶层字段，无缩进）
+name: Build EcoEnchants-Folia JAR (JDK 21)
+
+# 触发条件（顶层字段）
+on:
+  push:
+    branches: ["**"]  # 所有分支push触发，可改为main/master限制
+  pull_request:
+    branches: ["**"]
+
+# 任务定义（顶层字段）
+jobs:
+  build:
+    # 运行环境（jobs.build 层级，缩进2个空格）
+    runs-on: ubuntu-latest
+    
+    # 步骤列表（jobs.build 下的 steps 层级，缩进2个空格）
+    steps:
+      # 步骤1：检出代码（steps 下的子项，缩进4个空格）
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # 步骤2：配置JDK 21（缩进4个空格）
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'gradle'  # 缓存Gradle依赖，加速构建
+
+      # 步骤3：Gradle编译打包（缩进4个空格）
+      - name: Build with Gradle
+        run: |
+          chmod +x ./gradlew  # 赋予gradlew执行权限
+          ./gradlew clean build -x test  # 清理+编译+打包（跳过测试）
+        env:
+          ORG_GRADLE_PROJECT_javaVersion: 21  # 强制指定JDK 21编译
+
+      # 步骤4：上传编译好的JAR包（可选，方便下载）
+      - name: Upload JAR Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: EcoEnchants-Folia-JAR
+          path: |
+            **/*.jar
