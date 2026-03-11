@@ -23,7 +23,7 @@ dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
 
     // Plugin dependencies
-    compileOnly("net.dmulloy2:ProtocolLib:5.1.0")
+    compileOnly("net.dmulloy2:ProtocolLib:5.4.0")
     compileOnly("com.sk89q.worldguard:worldguard-bukkit:7.0.7-SNAPSHOT")
     compileOnly("com.github.TechFortress:GriefPrevention:16.17.1")
     compileOnly("com.github.TownyAdvanced:Towny:0.99.5.21") {
