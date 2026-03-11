@@ -45,12 +45,14 @@ jobs:
         run: ls -R
 
       - name: 直接搜索所有 JAR 文件
-        run: find . -name "*.jar"
+        run: |
+          JAR_PATH=$(find . -name "eco-6.77.3.jar" | head -1)
+          echo "JAR_PATH=$JAR_PATH" >> $GITHUB_OUTPUT
+          echo "找到 jar：$JAR_PATH"
 
       # 步骤5：上传编译好的JAR包（可选，方便下载）
       - name: Upload JAR Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Eco-Folia-JAR
-          path: |
-            bin
+          path: ${{ steps.find-jar.outputs.JAR_PATH }}
