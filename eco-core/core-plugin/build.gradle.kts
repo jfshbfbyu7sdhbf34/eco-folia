@@ -7,8 +7,8 @@ dependencies {
     // Libraries
     implementation("com.github.WillFP:Crunch:1.1.3")
     implementation("com.mysql:mysql-connector-j:8.4.0")
-    implementation("org.jetbrains.exposed:exposed-core:0.53.0")
-    implementation("org.jetbrains.exposed:exposed-jdbc:0.53.0")
+    implementation("org.jetbrains.exposed:exposed-core:1.1.1")
+    implementation("org.jetbrains.exposed:exposed-jdbc:1.1.1")
     implementation("com.zaxxer:HikariCP:5.1.0")
     implementation("net.kyori:adventure-platform-bukkit:4.1.0")
     implementation("org.mongodb:mongodb-driver-kotlin-coroutine:5.1.2")
