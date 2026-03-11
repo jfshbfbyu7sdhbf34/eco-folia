@@ -50,3 +50,13 @@ jobs:
         with:
           name: Eco-Folia-JAR
           path: "**/*all.jar"
+
+      - name: Create Release & Upload JAR
+        uses: softprops/action-gh-release@v2
+        with:
+          files: "**/*all.jar"  # 自动找插件包
+          tag_name: "build-${{ github.sha }}"
+          name: "自动构建版本"
+          body: "由 GitHub Actions 自动编译发布"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
