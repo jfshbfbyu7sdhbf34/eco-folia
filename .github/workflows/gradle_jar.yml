@@ -44,4 +44,4 @@ jobs:
         with:
           name: EcoEnchants-Folia-JAR
           path: |
-            build/*.jar
+            bin
