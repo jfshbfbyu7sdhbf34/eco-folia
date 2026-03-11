@@ -44,15 +44,16 @@ jobs:
       - name: 列出所有文件和目录（找 JAR 必备）
         run: ls -R
 
-      - name: 直接搜索所有 JAR 文件
-        run: |
-          JAR_PATH=$(find . -name "eco-6.77.3.jar" | head -1)
-          echo "JAR_PATH=$JAR_PATH" >> $GITHUB_OUTPUT
-          echo "找到 jar：$JAR_PATH"
-
       # 步骤5：上传编译好的JAR包（可选，方便下载）
       - name: Upload JAR Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Eco-Folia-JAR
-          path: ${{ steps.find-jar.outputs.JAR_PATH }}
+          path: "**/eco-6.77.3.jar"
+
+      # 2. ✅ 清理缓存 + 清理构建文件（最干净）
+      - name: 清理缓存和工作区
+        run: |
+          rm -rf ~/.m2/repository   # 清理Maven缓存
+          rm -rf target build .gradle  # 清理项目构建文件
+          rm -rf /tmp/*  # 清理临时文件
