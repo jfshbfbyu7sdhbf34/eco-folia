@@ -126,11 +126,11 @@ allprojects {
         testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.2")
 
         // Adventure
-        implementation("net.kyori:adventure-api:4.10.1")
-        implementation("net.kyori:adventure-text-serializer-gson:4.10.1") {
+        implementation("net.kyori:adventure-api:4.26.1")
+        implementation("net.kyori:adventure-text-serializer-gson:4.26.1") {
             exclude("com.google.code.gson", "gson") // Prevent shading into the jar
         }
-        implementation("net.kyori:adventure-text-serializer-legacy:4.10.1")
+        implementation("net.kyori:adventure-text-serializer-legacy:4.26.1")
 
         // Other
         implementation("com.github.ben-manes.caffeine:caffeine:3.1.5")
