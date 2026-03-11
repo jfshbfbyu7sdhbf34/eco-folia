@@ -1,65 +1,44 @@
-# 工作流名称（顶层字段，无缩进）
-name: Build Eco JAR (JDK 21)
+name: Build Eco For Folia (自动适配Folia)
 
-# 触发条件（顶层字段）
 on:
   push:
-    branches: ["**"]  # 所有分支push触发，可改为main/master限制
-  pull_request:
-    branches: ["**"]
+    branches: ["master"]
+  workflow_dispatch:
 
 permissions:
   contents: write
 
-# 任务定义（顶层字段）
 jobs:
   build:
-    # 运行环境（jobs.build 层级，缩进2个空格）
     runs-on: ubuntu-latest
-    
-    # 步骤列表（jobs.build 下的 steps 层级，缩进2个空格）
     steps:
-      # 步骤1：检出代码（steps 下的子项，缩进4个空格）
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # 步骤2：配置JDK 21（缩进4个空格）
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'temurin'
-          cache: 'gradle'  # 缓存Gradle依赖，加速构建
 
-      # 步骤3：Gradle编译打包（缩进4个空格）
-      - name: Build with Gradle
+      # 🔥 关键：构建 Folia 版本（不是普通版！）
+      - name: Build Eco For Folia
         run: |
-          chmod +x ./gradlew  # 赋予gradlew执行权限
-          ./gradlew clean build -x test  # 清理+编译+打包（跳过测试）
-        env:
-          ORG_GRADLE_PROJECT_javaVersion: 21  # 强制指定JDK 21编译
+          chmod +x ./gradlew
+          ./gradlew clean build -Pfoilafix -x test
 
-      - name: 查看当前目录路径
-        run: pwd
+      # 自动找 Folia 专用 JAR
+      - name: Find Built JAR
+        run: find . -name "*all.jar"
 
-      - name: 列出所有文件和目录（找 JAR 必备）
-        run: ls -R
-
-      # 步骤5：上传编译好的JAR包（可选，方便下载）
-      - name: Upload JAR Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: Eco-Folia-JAR
-          path: "**/*all.jar"
-
-      - name: Create Release & Upload JAR
+      # 自动发布到 Releases
+      - name: Upload to Release
         uses: softprops/action-gh-release@v2
         with:
-          files: "**/*all.jar"  # 自动找插件包
-          tag_name: "build-${{ github.sha }}"
-          name: "自动构建版本"
-          body: "由 GitHub Actions 自动编译发布"
+          files: "**/*.jar"
+          tag_name: "eco-folia-build-${{ github.sha }}"
+          name: "Folia 专用 Eco 插件"
+          body: "✅ 适配 Folia 服务端 | 可直接放入 plugins 使用"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
