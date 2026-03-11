@@ -1,6 +1,6 @@
 dependencies {
     // Adventure
-    compileOnly("net.kyori:adventure-platform-bukkit:4.1.0")
+    compileOnly("net.kyori:adventure-platform-bukkit:4.4.1")
 
     // Other
     compileOnly("dev.folia:folia-api:1.21.8-R0.1-SNAPSHOT")

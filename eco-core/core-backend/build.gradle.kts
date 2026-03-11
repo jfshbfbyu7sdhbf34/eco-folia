@@ -5,7 +5,7 @@ dependencies {
     compileOnly("dev.folia:folia-api:1.21.8-R0.1-SNAPSHOT")
     compileOnly("me.clip:placeholderapi:2.11.6")
     compileOnly("net.kyori:adventure-text-minimessage:4.10.0")
-    compileOnly("net.kyori:adventure-platform-bukkit:4.1.0")
+    compileOnly("net.kyori:adventure-platform-bukkit:4.4.1")
     compileOnly("org.yaml:snakeyaml:1.33")
     compileOnly("com.moandjiezana.toml:toml4j:0.7.2")
 }
